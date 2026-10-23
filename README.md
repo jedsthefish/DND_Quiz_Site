@@ -26,3 +26,9 @@ Questions and scoring are intentionally kept separate from the quiz interface in
 5. Deploy the change.
 
 This is the initial content-management workflow: question edits are version-controlled code changes. A future admin editor can use the same `Question`, `Answer`, and scoring shape without changing the quiz or email APIs.
+
+## Political compass scoring
+
+The final quiz step lets participants place themselves on an economic-left/right and libertarian/authoritarian grid. Coordinates are used in the browser to add a proximity bonus to each class score; only the participant's name and resulting class are sent to the email endpoint.
+
+Edit each class's `compassPosition` in `src/data/questions.ts` to tune the starting placements. Coordinates range from `-10` to `10` on both axes: negative `x` is economic left, positive `x` is economic right, negative `y` is libertarian, and positive `y` is authoritarian. The closest placement can add up to `COMPASS_MAX_BONUS_POINTS`; the bonus decreases linearly with distance. The initial class positions are subjective starting points, not canonical associations.

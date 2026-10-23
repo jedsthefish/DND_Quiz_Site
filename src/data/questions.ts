@@ -24,20 +24,36 @@ export type Question = {
   answers: Answer[];
 };
 
-export const classes: Record<ClassId, { name: string; description: string }> = {
-  barbarian: { name: "Barbarian", description: "A fierce force of instinct, courage, and unstoppable power." },
-  bard: { name: "Bard", description: "A charismatic storyteller who turns creativity into adventure." },
-  cleric: { name: "Cleric", description: "A devoted champion who draws strength from a higher purpose." },
-  druid: { name: "Druid", description: "A guardian of the natural world with an adaptable spirit." },
-  fighter: { name: "Fighter", description: "A disciplined master of skill, tactics, and determination." },
-  monk: { name: "Monk", description: "A focused seeker who turns patience and practice into power." },
-  paladin: { name: "Paladin", description: "A principled protector who leads through conviction." },
-  ranger: { name: "Ranger", description: "A resourceful wanderer equally at home in the wild and the unknown." },
-  rogue: { name: "Rogue", description: "A clever problem-solver who thrives on precision and opportunity." },
-  sorcerer: { name: "Sorcerer", description: "A bold spellcaster whose magic comes from within." },
-  warlock: { name: "Warlock", description: "A curious seeker who is willing to pursue forbidden possibilities." },
-  wizard: { name: "Wizard", description: "A thoughtful scholar who solves problems through knowledge and preparation." },
+export type CompassPosition = {
+  x: number;
+  y: number;
 };
+
+type ClassProfile = {
+  name: string;
+  description: string;
+  compassPosition: CompassPosition;
+};
+
+// Initial, subjective placements; adjust these coordinates to tune class matching.
+export const classes: Record<ClassId, ClassProfile> = {
+  barbarian: { name: "Barbarian", description: "A fierce force of instinct, courage, and unstoppable power.", compassPosition: { x: -4, y: -6 } },
+  bard: { name: "Bard", description: "A charismatic storyteller who turns creativity into adventure.", compassPosition: { x: -2, y: -2 } },
+  cleric: { name: "Cleric", description: "A devoted champion who draws strength from a higher purpose.", compassPosition: { x: 2, y: 5 } },
+  druid: { name: "Druid", description: "A guardian of the natural world with an adaptable spirit.", compassPosition: { x: -7, y: -5 } },
+  fighter: { name: "Fighter", description: "A disciplined master of skill, tactics, and determination.", compassPosition: { x: 4, y: 4 } },
+  monk: { name: "Monk", description: "A focused seeker who turns patience and practice into power.", compassPosition: { x: -1, y: -8 } },
+  paladin: { name: "Paladin", description: "A principled protector who leads through conviction.", compassPosition: { x: 6, y: 8 } },
+  ranger: { name: "Ranger", description: "A resourceful wanderer equally at home in the wild and the unknown.", compassPosition: { x: -5, y: -3 } },
+  rogue: { name: "Rogue", description: "A clever problem-solver who thrives on precision and opportunity.", compassPosition: { x: 7, y: -5 } },
+  sorcerer: { name: "Sorcerer", description: "A bold spellcaster whose magic comes from within.", compassPosition: { x: 3, y: -6 } },
+  warlock: { name: "Warlock", description: "A curious seeker who is willing to pursue forbidden possibilities.", compassPosition: { x: 6, y: 1 } },
+  wizard: { name: "Wizard", description: "A thoughtful scholar who solves problems through knowledge and preparation.", compassPosition: { x: 0, y: 2 } },
+};
+
+export const COMPASS_MIN = -10;
+export const COMPASS_MAX = 10;
+export const COMPASS_MAX_BONUS_POINTS = 5;
 
 // Add or edit quiz content here. Published questions are the entries in this array.
 export const questions: Question[] = [
@@ -93,7 +109,7 @@ export const questions: Question[] = [
   },
 ];
 
-export function calculateResult(answerIds: string[]) {
+export function calculateResult(answerIds: string[], compassPosition: CompassPosition) {
   const totals = Object.fromEntries(Object.keys(classes).map((id) => [id, 0])) as Record<ClassId, number>;
   questions.forEach((question) => {
     const answer = question.answers.find((candidate) => answerIds.includes(candidate.id));
@@ -102,6 +118,16 @@ export function calculateResult(answerIds: string[]) {
         totals[classId as ClassId] += points ?? 0;
       });
     }
+  });
+  const maxDistance = Math.hypot(COMPASS_MAX - COMPASS_MIN, COMPASS_MAX - COMPASS_MIN);
+  Object.entries(classes).forEach(([classId, profile]) => {
+    const distance = Math.hypot(
+      compassPosition.x - profile.compassPosition.x,
+      compassPosition.y - profile.compassPosition.y,
+    );
+    const proximity = Math.max(0, 1 - distance / maxDistance);
+    const bonus = COMPASS_MAX_BONUS_POINTS * proximity;
+    totals[classId as ClassId] += Math.round(bonus * 100) / 100;
   });
   const ranked = (Object.keys(totals) as ClassId[]).sort((a, b) => totals[b] - totals[a]);
   return { winner: ranked[0], alternatives: ranked.slice(1, 3), totals };

@@ -28,4 +28,14 @@ input:focus { border-color: var(--accent); }
 .result-mark { color: var(--accent); font-size: 2rem; }
 .notice { margin-top: 24px; color: var(--accent); }
 .error { color: #e58b78; }
+.compass-grid { position: relative; width: min(100%, 440px); aspect-ratio: 1; margin: 32px auto; border: 1px solid #817665; background: linear-gradient(to right, transparent 24.8%, #403a31 25%, transparent 25.2%, transparent 49.8%, #817665 50%, transparent 50.2%, transparent 74.8%, #403a31 75%, transparent 75.2%), linear-gradient(to bottom, transparent 24.8%, #403a31 25%, transparent 25.2%, transparent 49.8%, #817665 50%, transparent 50.2%, transparent 74.8%, #403a31 75%, transparent 75.2%), #211e1a; cursor: crosshair; touch-action: manipulation; }
+.compass-axis-label { position: absolute; z-index: 1; color: var(--muted); font: 10px "DM Mono", monospace; text-transform: uppercase; }
+.compass-axis-label.top { top: 8px; left: 50%; transform: translateX(-50%); }
+.compass-axis-label.bottom { bottom: 8px; left: 50%; transform: translateX(-50%); }
+.compass-axis-label.left { left: 8px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; }
+.compass-axis-label.right { right: 8px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; }
+.compass-marker { position: absolute; z-index: 2; width: 18px; height: 18px; transform: translate(-50%, -50%); border: 3px solid var(--deep); border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--accent); pointer-events: none; }
+.compass-controls { display: grid; gap: 8px; max-width: 440px; margin: 0 auto 28px; }
+.compass-controls input { padding: 0; accent-color: var(--accent); }
+.button:disabled { cursor: not-allowed; opacity: .45; }
 @media (max-width: 600px) { .shell { padding: 8vh 20px 40px; } .progress-track { margin-bottom: 60px; } }
