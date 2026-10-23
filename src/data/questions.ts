@@ -29,6 +29,13 @@ export type CompassPosition = {
   y: number;
 };
 
+export type ReactionChoiceId = "bow" | "sword" | "staff";
+
+export type ReactionAnswer = {
+  choice: ReactionChoiceId | null;
+  elapsedMs: number;
+};
+
 type ClassProfile = {
   name: string;
   description: string;
@@ -54,6 +61,34 @@ export const classes: Record<ClassId, ClassProfile> = {
 export const COMPASS_MIN = -10;
 export const COMPASS_MAX = 10;
 export const COMPASS_MAX_BONUS_POINTS = 5;
+export const REACTION_DURATION_MS = 10_000;
+export const REACTION_DURATION_SECONDS = REACTION_DURATION_MS / 1000;
+
+// Fill these in with the class weights for each reaction choice.
+export const REACTION_CHOICE_SCORES: Record<ReactionChoiceId, Partial<Record<ClassId, number>>> = {
+  bow: {},
+  sword: {},
+  staff: {},
+};
+
+// Scores interpolate from fast to slow over the countdown. Ranger and Warlock are starter examples.
+export const REACTION_TIME_SCORES: Record<ClassId, { fast: number; slow: number }> = {
+  barbarian: { fast: 0, slow: 0 },
+  bard: { fast: 0, slow: 0 },
+  cleric: { fast: 0, slow: 0 },
+  druid: { fast: 0, slow: 0 },
+  fighter: { fast: 0, slow: 0 },
+  monk: { fast: 0, slow: 0 },
+  paladin: { fast: 0, slow: 0 },
+  ranger: { fast: 2, slow: 0 },
+  rogue: { fast: 0, slow: 0 },
+  sorcerer: { fast: 0, slow: 0 },
+  warlock: { fast: 0, slow: 2 },
+  wizard: { fast: 0, slow: 0 },
+};
+
+// Add class weights here for participants who let the timer expire.
+export const REACTION_TIMEOUT_SCORES: Partial<Record<ClassId, number>> = {};
 
 // Add or edit quiz content here. Published questions are the entries in this array.
 export const questions: Question[] = [
@@ -109,7 +144,11 @@ export const questions: Question[] = [
   },
 ];
 
-export function calculateResult(answerIds: string[], compassPosition: CompassPosition) {
+export function calculateResult(
+  answerIds: string[],
+  compassPosition: CompassPosition,
+  reaction: ReactionAnswer,
+) {
   const totals = Object.fromEntries(Object.keys(classes).map((id) => [id, 0])) as Record<ClassId, number>;
   questions.forEach((question) => {
     const answer = question.answers.find((candidate) => answerIds.includes(candidate.id));
@@ -118,6 +157,20 @@ export function calculateResult(answerIds: string[], compassPosition: CompassPos
         totals[classId as ClassId] += points ?? 0;
       });
     }
+  });
+  if (reaction.choice) {
+    Object.entries(REACTION_CHOICE_SCORES[reaction.choice]).forEach(([classId, points]) => {
+      totals[classId as ClassId] += points ?? 0;
+    });
+  } else {
+    Object.entries(REACTION_TIMEOUT_SCORES).forEach(([classId, points]) => {
+      totals[classId as ClassId] += points ?? 0;
+    });
+  }
+  const reactionProgress = Math.max(0, Math.min(1, reaction.elapsedMs / REACTION_DURATION_MS));
+  Object.entries(REACTION_TIME_SCORES).forEach(([classId, scores]) => {
+    const points = scores.fast + (scores.slow - scores.fast) * reactionProgress;
+    totals[classId as ClassId] += Math.round(points * 100) / 100;
   });
   const maxDistance = Math.hypot(COMPASS_MAX - COMPASS_MIN, COMPASS_MAX - COMPASS_MIN);
   Object.entries(classes).forEach(([classId, profile]) => {
