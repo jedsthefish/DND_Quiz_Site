@@ -23,6 +23,11 @@ input:focus { border-color: var(--accent); }
 .answer { display: flex; justify-content: space-between; gap: 20px; border: 1px solid #4e463b; border-radius: 8px; padding: 20px; color: var(--ink); background: var(--panel); text-align: left; font: inherit; cursor: pointer; transition: border-color .2s, transform .2s; }
 .answer:hover, .answer:focus-visible { border-color: var(--accent); transform: translateX(5px); outline: none; }
 .answer span { color: var(--accent); }
+.image-answer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 40px; }
+.image-answer { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid #665b4c; border-radius: 10px; padding: 0; background: #211e1a; cursor: pointer; box-shadow: 0 7px 20px #0005; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.image-answer img { object-fit: cover; transition: transform .25s ease, filter .25s ease; }
+.image-answer:hover, .image-answer:focus-visible { z-index: 1; transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 0 20px #e8ad5a55, 0 10px 24px #0007; outline: none; }
+.image-answer:hover img, .image-answer:focus-visible img { transform: scale(1.06); filter: brightness(1.08); }
 .result-shell { padding-top: 17vh; }
 .result-card { display: flex; gap: 18px; align-items: center; margin-top: 42px; border: 1px solid #4e463b; border-radius: 10px; padding: 22px; color: var(--muted); }
 .result-mark { color: var(--accent); font-size: 2rem; }
@@ -98,5 +103,6 @@ input:focus { border-color: var(--accent); }
 @keyframes snow-drift { 0%, 100% { opacity: .45; transform: translate(0, -2px) rotate(0deg); } 50% { opacity: 1; transform: translate(4px, 5px) rotate(35deg); } }
 .reaction-time { color: var(--muted); font: 12px "DM Mono", monospace; text-align: center; }
 @media (max-width: 600px) { .shell { padding: 8vh 20px 40px; } .progress-track { margin-bottom: 60px; } }
+@media (max-width: 600px) { .image-answer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 30px; } }
 @media (max-width: 480px) { .reaction-buttons { gap: 8px; } .reaction-button { min-height: 120px; padding: 12px 6px; } .reaction-button svg { width: 52px; height: 52px; } .reaction-button--bow svg { width: 72px; height: 58px; } .reaction-button--staff svg { width: 62px; height: 90px; } }
 @media (prefers-reduced-motion: reduce) { .reaction-particles > span, .reaction-particles--fire > span { animation: none; } }

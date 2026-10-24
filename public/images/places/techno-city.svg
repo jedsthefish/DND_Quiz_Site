@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#101c3c"/><stop offset="1" stop-color="#422f66"/></linearGradient>
+    <linearGradient id="tower" x2="0" y2="1"><stop stop-color="#354c76"/><stop offset="1" stop-color="#1d2946"/></linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="610" cy="108" r="72" fill="#8e6cbb" opacity=".16"/>
+  <path d="M0 468h800v132H0z" fill="#151c31"/>
+  <path d="M40 286h96v182H40zm122-93h128v275H162zm154 111h88v154h-88zm115-153h124v307H431zm148 65h96v242h-96zm116-94h62v336h-62z" fill="url(#tower)" stroke="#59658d" stroke-width="5"/>
+  <path d="M188 192v-52h76v52m282-41V94h44v57m143-91v59" fill="none" stroke="#5ee6e1" stroke-width="6"/>
+  <path d="M57 315h20v29H57zm43 0h20v29h-20zm-43 54h20v29H57zm43 0h20v29h-20zm83-126h24v35h-24zm55 0h24v35h-24zm-55 68h24v35h-24zm55 0h24v35h-24zm-55 68h24v35h-24zm55 0h24v35h-24zm210-116h23v36h-23zm54 0h23v36h-23zm-54 68h23v36h-23zm54 0h23v36h-23zm-54 68h23v36h-23zm54 0h23v36h-23z" fill="#73e7db"/>
+  <path d="M0 481h800" stroke="#e35cdb" stroke-width="5"/>
+  <path d="m0 521 176-43m68 43 147-43m93 43 151-43m68 43 97-29" stroke="#41d6db" stroke-width="4" opacity=".8"/>
+  <path d="M367 468V322h67v146z" fill="#28243f" stroke="#a274d9" stroke-width="5"/>
+  <path d="M390 354h21v29h-21zm0 54h21v29h-21z" fill="#ff6ec7"/>
+  <path d="M662 192h29v37h-29zm0 67h29v37h-29zm0 67h29v37h-29z" fill="#ffd16d"/>
+</svg>

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   calculateResult,
   classes,
@@ -115,7 +116,7 @@ export default function Quiz() {
       <main className="shell intro-shell">
         <p className="eyebrow">A personality quiz for adventurers</p>
         <h1>Which D&D class is waiting for you?</h1>
-        <p className="lead">Answer five quick questions, then place yourself on the compass. We&apos;ll match you with the class that fits your spirit.</p>
+        <p className="lead">Answer a few questions, choose a place to call home, then place yourself on the compass. We&apos;ll match you with the class that fits your spirit.</p>
         <form onSubmit={start} className="name-form">
           <label htmlFor="name">What should we call you?</label>
           <input id="name" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your name" maxLength={80} required />
@@ -269,7 +270,22 @@ export default function Quiz() {
       <div className="progress-track"><div style={{ width: `${((current + 1) / questions.length) * 100}%` }} /></div>
       <p className="eyebrow">Choose what feels most like you</p>
       <h1>{question.text}</h1>
-      <div className="answers">{question.answers.map((answer) => <button className="answer" key={answer.id} onClick={() => choose(answer.id)}>{answer.text}<span aria-hidden="true">↗</span></button>)}</div>
+      {question.layout === "image-grid" ? (
+        <div className="image-answer-grid" role="group" aria-label={question.text}>
+          {question.answers.map((answer) => (
+            <button
+              className="image-answer"
+              key={answer.id}
+              onClick={() => choose(answer.id)}
+              aria-label={answer.text}
+            >
+              {answer.imageSrc && <Image src={answer.imageSrc} alt="" fill sizes="(max-width: 600px) 45vw, 220px" />}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="answers">{question.answers.map((answer) => <button className="answer" key={answer.id} onClick={() => choose(answer.id)}>{answer.text}<span aria-hidden="true">↗</span></button>)}</div>
+      )}
     </main>
   );
 }

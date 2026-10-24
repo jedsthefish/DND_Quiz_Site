@@ -16,12 +16,14 @@ export type Answer = {
   id: string;
   text: string;
   scores: Partial<Record<ClassId, number>>;
+  imageSrc?: string;
 };
 
 export type Question = {
   id: string;
   text: string;
   answers: Answer[];
+  layout?: "image-grid";
 };
 
 export type CompassPosition = {
@@ -140,6 +142,49 @@ export const questions: Question[] = [
       { id: "inherited", text: "As an instinctive gift that is uniquely mine.", scores: { sorcerer: 3, barbarian: 1 } },
       { id: "bargained", text: "By reaching beyond the ordinary for new knowledge.", scores: { warlock: 3, wizard: 1 } },
       { id: "sacred", text: "As a responsibility entrusted to me.", scores: { paladin: 3, cleric: 2 } },
+    ],
+  },
+  {
+    id: "home",
+    text: "Pick a place you'd like to live.",
+    layout: "image-grid",
+    answers: [
+      {
+        id: "countryside-farm",
+        text: "A farm in the countryside",
+        imageSrc: "/images/places/countryside-farm.svg",
+        scores: { druid: 3, ranger: 2, cleric: 1 },
+      },
+      {
+        id: "busy-city",
+        text: "A busy city",
+        imageSrc: "/images/places/busy-city.svg",
+        scores: { bard: 3, rogue: 2, fighter: 1 },
+      },
+      {
+        id: "mountainside-castle",
+        text: "A castle on a mountainside",
+        imageSrc: "/images/places/mountainside-castle.svg",
+        scores: { paladin: 3, fighter: 2, cleric: 1 },
+      },
+      {
+        id: "beach-shack",
+        text: "A shack by the beach",
+        imageSrc: "/images/places/beach-shack.svg",
+        scores: { ranger: 2, bard: 2, druid: 1, sorcerer: 1 },
+      },
+      {
+        id: "remote-hermitage",
+        text: "A remote hermitage",
+        imageSrc: "/images/places/remote-hermitage.svg",
+        scores: { monk: 3, druid: 2, cleric: 1, wizard: 1 },
+      },
+      {
+        id: "techno-city",
+        text: "A techno city",
+        imageSrc: "/images/places/techno-city.svg",
+        scores: { wizard: 3, rogue: 2, sorcerer: 1, warlock: 1 },
+      },
     ],
   },
 ];
