@@ -143,21 +143,57 @@ export default function Quiz() {
             <span className="reaction-particles reaction-particles--electric" aria-hidden="true">
               <span>⚡</span><span>⚡</span><span>⚡</span><span>⚡</span><span>⚡</span>
             </span>
-            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 8C48 18 48 46 18 56M18 8v48M21 32h34M44 24l11 8-11 8" /></svg>
+            <svg viewBox="0 0 120 100" aria-hidden="true">
+              <path className="bow-limbs" d="M28 7C55 8 79 17 88 32c5 9-5 15-23 18 18 3 28 9 23 18-9 15-33 24-60 25" />
+              <path className="bow-string" d="M28 7 28 93" />
+              <path className="bow-arrow" d="M14 50h92m-14-13 14 13-14 13" />
+              <path className="bow-fletching" d="m33 44 12 6-12 6m5-13 10 7-10 7" />
+              <path className="bow-grip" d="M59 45v10m5-10v10" />
+            </svg>
             <span>Bow</span>
           </button>
           <button className="reaction-button reaction-button--sword" onClick={() => chooseReaction("sword")} aria-label="Choose sword">
             <span className="reaction-particles reaction-particles--fire" aria-hidden="true">
               <span /><span /><span /><span /><span />
             </span>
-            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="m18 46 28-28 6 6-28 28-8 2zM14 42l10 10M39 25l6 6M47 17l4-4 6 6-4 4" /></svg>
+            <svg viewBox="0 0 100 180" aria-hidden="true">
+              <defs>
+                <linearGradient id="sword-steel" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stopColor="#716d67" />
+                  <stop offset=".22" stopColor="#f0e9dc" />
+                  <stop offset=".5" stopColor="#a7a196" />
+                  <stop offset=".78" stopColor="#eee7da" />
+                  <stop offset="1" stopColor="#5e5a55" />
+                </linearGradient>
+              </defs>
+              <g className="sword-metal">
+                <path d="M50 4 59 10 56 21 50 25 44 21 41 10Z" />
+                <circle cx="50" cy="14" r="4.5" />
+                <path d="M46 23 47 46 53 46 54 23M46 29 54 29M46 35 54 35M46 41 54 41" />
+                <path d="M45 46 40 51 30 49 22 43 16 51 22 63 36 67 45 60 50 66 55 60 64 67 78 63 84 51 78 43 70 49 60 51 55 46Z" />
+                <path d="M16 51 9 46 13 62 22 70 34 72 43 66M84 51 91 46 87 62 78 70 66 72 57 66" />
+                <path d="M45 62 42 68 45 72 50 68 55 72 58 68 55 62" />
+                <path className="sword-blade" d="M43 69 47 74 50 79 53 74 57 69 55 154 50 177 45 154Z" />
+                <path d="M50 80 50 164M43 74 47 154M57 74 53 154" />
+                <path d="m50 50 2 3-2 3-2-3zM27 53l5 5-5 4-4-5zM73 53l-5 5 5 4 4-5z" />
+                <circle cx="50" cy="55" r="3.5" />
+              </g>
+            </svg>
             <span>Sword</span>
           </button>
           <button className="reaction-button reaction-button--staff" onClick={() => chooseReaction("staff")} aria-label="Choose staff">
             <span className="reaction-particles reaction-particles--snow" aria-hidden="true">
               <span>❄</span><span>❄</span><span>❄</span><span>❄</span><span>❄</span>
             </span>
-            <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M27 54 37 15M24 59l5-2M32 11a8 8 0 1 0 10 0M34 6h6M37 2v4" /></svg>
+            <svg viewBox="0 0 120 140" aria-hidden="true">
+              <path className="staff-wood" d="m11 133 6 3L86 35l-7-6z" />
+              <path className="staff-grain" d="m17 131 12-17-2-6 14-16-1-7 13-15-1-6 14-15m-31 52 9-5 5-10 12-8 4-10 12-8 4-9 12-9" />
+              <path className="staff-wrap" d="m44 91 9 6m1-15 9 6m1-15 9 6m1-15 9 6m1-15 9 6" />
+              <path className="staff-head" d="m79 34-13-9-1-15 12-9 17 1 10 12-3 16-13 9z" />
+              <path className="staff-flourish" d="M76 28c-10-7-11-18-4-25m22 34c12-7 16-18 9-29M69 16l-8-5 5 10m27 7 10 4-6-9" />
+              <path className="staff-crystal" d="m78 7 10 1 6 8-4 10-10 2-7-8z" />
+              <circle className="staff-core" cx="83" cy="16" r="4" />
+            </svg>
             <span>Staff</span>
           </button>
         </div>
