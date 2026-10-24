@@ -44,11 +44,11 @@ input:focus { border-color: var(--accent); }
 .countdown { display: grid; place-items: center; width: 112px; height: 112px; margin: 32px auto; border: 2px solid var(--accent); border-radius: 50%; color: var(--accent); font: 500 3.5rem "DM Mono", monospace; font-variant-numeric: tabular-nums; }
 .reaction-buttons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 540px; margin: 0 auto; }
 .reaction-button { position: relative; display: grid; justify-items: center; align-content: center; gap: 10px; min-height: 150px; overflow: hidden; border: 1px solid var(--effect-color); border-radius: 12px; padding: 18px; color: var(--ink); background: linear-gradient(145deg, color-mix(in srgb, var(--effect-color) 13%, var(--panel)), var(--panel) 70%); font-family: inherit; font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: 0 0 14px color-mix(in srgb, var(--effect-color) 34%, transparent), inset 0 0 16px color-mix(in srgb, var(--effect-color) 9%, transparent); transition: border-color .15s, transform .15s, background .15s, box-shadow .15s; }
-.reaction-button--bow { --effect-color: #73e9ff; }
+.reaction-button--bow { --effect-color: #ffd84d; }
 .reaction-button--sword { --effect-color: #ff743d; }
 .reaction-button--staff { --effect-color: #a6eaff; }
 .reaction-button--bow svg { width: 92px; height: 72px; overflow: visible; stroke-width: 2.2; }
-.reaction-button--bow .bow-limbs { fill: none; stroke-width: 5.5; filter: drop-shadow(0 0 3px #73e9ff); }
+.reaction-button--bow .bow-limbs { fill: none; stroke-width: 5.5; filter: drop-shadow(0 0 3px #ffd84d); }
 .reaction-button--bow .bow-string { stroke-width: 1.5; opacity: .8; }
 .reaction-button--bow .bow-arrow { stroke: #dffbff; stroke-width: 2.8; }
 .reaction-button--bow .bow-fletching { stroke-width: 2; opacity: .8; }
